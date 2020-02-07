@@ -1,0 +1,246 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Hotel API",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "",
+            "description": "OpenApi Hotel"
+        }
+    ],
+    "paths": {
+        "/hotels": {
+            "get": {
+                "operationId": "App\\Controller\\ApiController::index",
+                "responses": {
+                    "200": {
+                        "description": "Show all hotels",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Hotel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "hotel"
+                ],
+                "summary": "Update an existing hotel",
+                "description": "",
+                "operationId": "updatehotel",
+                "requestBody": {
+                    "description": "hotel object that needs to be added",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Hotel"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "hotel"
+                ],
+                "summary": "Add a new hotel",
+                "description": "Add a mew hotel",
+                "operationId": "addhotel",
+                "requestBody": {
+                    "description": "hotel object that needs to be added",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Hotel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hotels/{hotelID}": {
+            "get": {
+                "tags": [
+                    "hotel"
+                ],
+                "summary": "Find hotel by ID",
+                "description": "Returns a single hotel",
+                "operationId": "getHotelById",
+                "parameters": [
+                    {
+                        "name": "hotelId",
+                        "in": "path",
+                        "description": "ID of hotel to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Hotel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Hotel not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/hotels/{hotelId}": {
+            "delete": {
+                "tags": [
+                    "hotel"
+                ],
+                "summary": "Deletes a hotel",
+                "description": "Deletes a hotel",
+                "operationId": "deletehotel",
+                "parameters": [
+                    {
+                        "name": "hotelId",
+                        "in": "path",
+                        "description": "hotel id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "hotel not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Hotel": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "rating": {
+                        "type": "integer"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "reputation": {
+                        "type": "integer"
+                    },
+                    "price": {
+                        "type": "integer"
+                    },
+                    "availability": {
+                        "type": "integer"
+                    },
+                    "locations": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "type": "object"
+            },
+            "Location": {
+                "properties": {
+                    "City": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "zipcode": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "properties": {
+                    "login": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "405": {
+                "description": "Invalid input"
+            },
+            "400": {
+                "description": "Invalid ID supplied"
+            },
+            "404": {
+                "description": "Hotel not found"
+            }
+        },
+        "securitySchemes": {
+            "hotel_auth": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "http://127.0.0.1:8000/openapi/index.html",
+                        "scopes": {
+                            "user:hotels": "manage your hotels"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

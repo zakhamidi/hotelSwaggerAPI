@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello Hoteler!{% endblock %}
+{% block body %}
+{% if editmode %}
+<h1>Add new Hotel<h1/>
+{% else %}
+<h1>modify Hotel<h1/>
+{% endif %}
+{{ form_start(formhotel) }}
+{{ form_row(formhotel.name) }}
+{{ form_row(formhotel.image) }}
+<label for="pet-select">Choose a your category:</label>
+<select name="category" id="hotel-select">
+    <option value="">--Please choose the category--</option>
+    <option value="hotel">hotel</option>
+    <option value=" alternative"> alternative</option>
+    <option value="hostel">hostel</option>
+    <option value="lodge">lodge</option>
+    <option value="resort">resort</option>
+    <option value="guest-house">guest-house</option>
+</select>
+{{ form_row(formhotel.price) }}
+{{ form_start(formlocation) }}
+{{ form_widget(formlocation) }}
+{{form_end(formlocation)}}
+{{form_end(formhotel)}}
+{% endblock %}

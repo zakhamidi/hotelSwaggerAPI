@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Hotel!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>ALL The Hotels! ✅</h1>
+    {% for hotel in hotels %}
+    your files is {{hotel.name}} </a>
+    <h2><a href={{ path('Hotelform',{'id': hotel.id})}}> your Hotel is {{hotel.name}}</h2></a><span>with the category: {{hotel.category}}</span>
+    <p><img src="{{hotel.image}}"></p>
+    <h2>Rating</h2>{% for location in hotel.locations %}
+    <h3>{{location.city}} || {{location.state}} || {{location.country}} || {{location.zipcode}} </h3>{% endfor %}
+    <p>      
+</p>
+<p><a href={{path('Hotelform')}}>you can add new Hotel here</a></p>
+{% endfor %}
+{% endblock %}
